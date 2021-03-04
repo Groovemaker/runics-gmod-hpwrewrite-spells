@@ -76,6 +76,7 @@ function Spell:OnFire(wand)
 end
 
 function Spell:Pumpkin( ply )
+	if ply:LookupBone("ValveBiped.Bip01_Head1") == nil then return end
 	local c_Model = ents.Create("prop_dynamic")
 	ply:EmitSound("npc/barnacle/barnacle_bark2.wav",75,88,3)
 	
@@ -170,9 +171,9 @@ function Spell:OnCollide(spell, data)
 
 		if ent:IsNPC() or ent:IsPlayer() then 
 			Spell:Pumpkin( ent )
-		elseif ent.HPWRagdolledEnt then
+		elseif ent:IsRagdoll() then
 			Spell:Pumpkin( ent )
-			HpwRewrite.TakeDamage(ent, self.Owner, ent.MaxPenetration, force)
+			--HpwRewrite.TakeDamage(ent, self.Owner, ent.MaxPenetration, force)
 		end
 	end
 end
